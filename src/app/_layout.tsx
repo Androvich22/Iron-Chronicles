@@ -4,6 +4,11 @@ import { ActivityIndicator, Text, View } from "react-native";
 import { SQLiteProvider } from "expo-sqlite";
 import { Suspense } from "react";
 import { initializeDatabase } from "../data/database";
+import * as Notifications from "expo-notifications";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({ shouldShowBanner: true, shouldShowList: true, shouldPlaySound: true, shouldSetBadge: false }),
+});
 
 const GOLD = "#B69A68";
 
