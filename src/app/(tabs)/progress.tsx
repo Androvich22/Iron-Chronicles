@@ -59,7 +59,7 @@ export default function ProgressScreen() {
   const progressValues = timeline.map((point) => selectedExercise?.loadType !== "bodyweight" ? point.bestLoadKg ?? 0 : point.totalReps);
   const progressMax = Math.max(1, ...progressValues);
 
-  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground /><ScrollView contentContainerStyle={s.content}>
+  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground scene="chronicle" /><ScrollView contentContainerStyle={s.content}>
     <Text style={s.wordmark}>IRON CHRONICLES</Text><Text style={s.eyebrow}>THE CHRONICLE</Text><Text style={s.title}>Progress</Text><Text style={s.description}>A clear account of completed work, records, and changes over time.</Text>
     {error ? <Text accessibilityRole="alert" style={s.error}>{error}</Text> : null}
 

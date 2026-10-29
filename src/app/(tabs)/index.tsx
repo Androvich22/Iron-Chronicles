@@ -46,7 +46,7 @@ export default function HallScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
-      <AtmosphereBackground />
+      <AtmosphereBackground scene="hall" />
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.topline}><View style={styles.brand}><BrandMark size={25} /><Text style={styles.wordmark}>IRON CHRONICLES</Text></View><Pressable accessibilityRole="button" accessibilityLabel="Settings and data backup" onPress={() => router.push("/settings")} style={styles.settings}><Text style={styles.settingsGlyph}>⚙</Text></Pressable></View>
         <Text style={styles.kicker}>THE HALL  ·  {today}</Text>

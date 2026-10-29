@@ -49,7 +49,7 @@ export default function WorkoutsScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
-      <AtmosphereBackground />
+      <AtmosphereBackground scene="forge" />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.wordmark}>IRON CHRONICLES</Text>
         <Text style={styles.eyebrow}>THE FORGE</Text>

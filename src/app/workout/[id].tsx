@@ -60,9 +60,9 @@ export default function WorkoutDetailScreen() {
     { text: "Delete set", style: "destructive", onPress: () => { void deleteCompletedSet(db, setId).then(refresh).catch(() => setError("This set could not be deleted.")); } },
   ]);
 
-  if (!workout) return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground /><View style={s.center}><Text style={s.wordmark}>THE CHRONICLE</Text><Text style={s.emptyTitle}>{loading ? "Opening workout record…" : "Workout not found"}</Text><Text style={s.emptyText}>{error ?? "This workout may have been deleted."}</Text><Pressable onPress={() => router.replace("/workouts")} style={s.backToHistory}><Text style={s.backText}>BACK TO HISTORY</Text></Pressable></View></SafeAreaView>;
+  if (!workout) return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground scene="chronicle" /><View style={s.center}><Text style={s.wordmark}>THE CHRONICLE</Text><Text style={s.emptyTitle}>{loading ? "Opening workout record…" : "Workout not found"}</Text><Text style={s.emptyText}>{error ?? "This workout may have been deleted."}</Text><Pressable onPress={() => router.replace("/workouts")} style={s.backToHistory}><Text style={s.backText}>BACK TO HISTORY</Text></Pressable></View></SafeAreaView>;
 
-  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground /><ScrollView contentContainerStyle={s.content}>
+  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground scene="chronicle" /><ScrollView contentContainerStyle={s.content}>
     <View style={s.topline}><Pressable accessibilityRole="button" onPress={() => router.replace("/workouts")} style={s.back}><Text style={s.backGlyph}>‹</Text></Pressable><View style={s.topCopy}><Text style={s.eyebrow}>THE CHRONICLE · HISTORY</Text><Text style={s.title}>{workout.routineName ?? "Empty workout"}</Text></View></View>
     <Text style={s.date}>{new Date(workout.completedAt).toLocaleDateString([], { weekday: "long", month: "long", day: "numeric", year: "numeric" })}</Text>
     <View style={s.metrics}><Metric label="DURATION" value={`${summary?.durationMinutes ?? 0} min`} /><Metric label="EXERCISES" value={String(summary?.exerciseCount ?? 0)} /><Metric label="WORKING SETS" value={String(summary?.completedSets ?? 0)} /><Metric label="TOTAL REPS" value={(summary?.totalReps ?? 0).toLocaleString()} /></View>

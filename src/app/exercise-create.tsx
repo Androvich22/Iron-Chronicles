@@ -50,7 +50,7 @@ export default function ExerciseCreateScreen() {
     finally { setSaving(false); }
   };
 
-  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground /><ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={s.content}>
+  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground scene="armory" /><ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={s.content}>
     <View style={s.topline}><Pressable onPress={() => router.back()} style={s.back}><Text style={s.backGlyph}>‹</Text></Pressable><Text style={s.wordmark}>THE LIBRARY</Text></View>
     <Text style={s.title}>{editingId ? "Edit exercise" : "New exercise"}</Text><Text style={s.description}>Add a custom movement to your local exercise library.</Text>
     <Field label="EXERCISE NAME" value={name} onChangeText={setName} placeholder="e.g. Zercher Squat" />

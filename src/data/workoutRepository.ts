@@ -52,6 +52,32 @@ export async function startWorkoutFromRoutine(db: SQLiteDatabase, routineId: str
   }
   const routine = await getRoutine(db, routineId);
   if (!routine || !routine.exercises.length) throw new Error("This routine has no exercises to start.");
+  const previousSetLoads = await db.getAllAsync<{ workout_exercise_id: string; exercise_id: string; load_kg: number }>(
+    `SELECT we.id AS workout_exercise_id, we.exercise_id, s.load_kg
+     FROM workouts w
+     JOIN workout_exercises we ON we.workout_id = w.id
+     JOIN sets s ON s.workout_exercise_id = we.id
+     WHERE w.routine_id = ?
+       AND w.status = 'completed'
+       AND w.completed_at IS NOT NULL
+       AND we.is_omitted = 0
+       AND s.is_completed = 1
+       AND s.set_type = 'working'
+       AND s.load_kg IS NOT NULL
+     ORDER BY w.completed_at DESC, w.started_at DESC, w.id DESC, we.order_index, s.order_index`,
+    routineId,
+  );
+  const loadsByExercise = new Map<string, number[]>();
+  const lastSessionByExercise = new Map<string, string>();
+  for (const set of previousSetLoads) {
+    const lastSessionId = lastSessionByExercise.get(set.exercise_id);
+    if (lastSessionId && lastSessionId !== set.workout_exercise_id) continue;
+    lastSessionByExercise.set(set.exercise_id, set.workout_exercise_id);
+    const exerciseLoads = loadsByExercise.get(set.exercise_id) ?? [];
+    exerciseLoads.push(set.load_kg);
+    loadsByExercise.set(set.exercise_id, exerciseLoads);
+  }
+
   const workoutId = makeId("workout");
   await db.withTransactionAsync(async () => {
     await db.runAsync(
@@ -66,10 +92,16 @@ export async function startWorkoutFromRoutine(db: SQLiteDatabase, routineId: str
         workoutExerciseId, workoutId, item.exercise.id, item.exercise.name, item.exercise.primaryMuscleGroup, item.exercise.equipment,
         item.exercise.loadType, item.exercise.trackingType, item.orderIndex, item.targetSetCount, item.targetRepMin, item.targetRepMax, item.restSeconds,
       );
+      const lastLoads = loadsByExercise.get(item.exercise.id) ?? [];
       for (let setIndex = 0; setIndex < item.targetSetCount; setIndex += 1) {
+        const loadKg = lastLoads.length > setIndex
+          ? lastLoads[setIndex]
+          : lastLoads.length > 0
+            ? lastLoads[lastLoads.length - 1]
+            : item.targetLoadKg;
         await db.runAsync(
           "INSERT INTO sets (id, workout_exercise_id, order_index, set_type, repetitions, load_kg) VALUES (?, ?, ?, 'working', NULL, ?)",
-          makeId("set"), workoutExerciseId, setIndex, item.targetLoadKg,
+          makeId("set"), workoutExerciseId, setIndex, loadKg,
         );
       }
     }

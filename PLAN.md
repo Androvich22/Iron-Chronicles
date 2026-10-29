@@ -66,7 +66,7 @@ This document captures the product interview and is the working blueprint for in
 
 1. Create a routine and add exercises from the library.
 2. Set exercise order, target set count, and rep range.
-3. Edit the routine at any time. Starting it creates a workout based on its current contents.
+3. Edit the routine at any time. Starting it creates a workout based on its current contents. On later starts, prefill each exercise’s set loads from its most recent completed working sets in that same routine; use the routine’s saved target load when no prior logged load exists, and repeat the last logged load for additional sets.
 4. During a workout, allow changes without deleting completed set records.
 5. Allow routines to be renamed, duplicated, and deleted after confirmation. Routine entries may include an optional target load, rest duration, and note in addition to target sets and rep range.
 

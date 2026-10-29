@@ -28,7 +28,7 @@ export default function LibraryScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
-      <AtmosphereBackground />
+      <AtmosphereBackground scene="armory" />
       <FlatList
         data={exercises}
         keyExtractor={(item) => item.id}

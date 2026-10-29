@@ -95,7 +95,7 @@ export default function ActiveWorkoutScreen() {
   const elapsed = workout ? Math.max(0, Math.floor((now - new Date(workout.started_at).getTime()) / 1000)) : 0;
 
   if (!workout) {
-    return <SafeAreaView style={styles.safe} edges={["top"]}><AtmosphereBackground /><View style={styles.missing}><Text style={styles.wordmark}>IRON CHRONICLES</Text><Text style={styles.title}>No active workout</Text><Text style={styles.body}>Start a new session from Workouts to begin logging.</Text><Pressable onPress={() => router.replace("/workouts")} style={styles.primary}><Text style={styles.primaryText}>BACK TO WORKOUTS</Text></Pressable></View></SafeAreaView>;
+    return <SafeAreaView style={styles.safe} edges={["top"]}><AtmosphereBackground scene="forge" /><View style={styles.missing}><Text style={styles.wordmark}>IRON CHRONICLES</Text><Text style={styles.title}>No active workout</Text><Text style={styles.body}>Start a new session from Workouts to begin logging.</Text><Pressable onPress={() => router.replace("/workouts")} style={styles.primary}><Text style={styles.primaryText}>BACK TO WORKOUTS</Text></Pressable></View></SafeAreaView>;
   }
 
   const addNewSet = async (exerciseId: string) => { await addSet(db, exerciseId); await refresh(); };
@@ -113,7 +113,7 @@ export default function ActiveWorkoutScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
-      <AtmosphereBackground />
+      <AtmosphereBackground scene="forge" />
       <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.content}>
         <View style={styles.header}><Pressable onPress={() => router.replace("/workouts")} style={styles.back}><Text style={styles.backGlyph}>‹</Text></Pressable><View style={styles.headerCopy}><Text style={styles.eyebrow}>THE FORGE · SESSION</Text><Text style={styles.title}>{workout.routine_name_snapshot ?? "Empty Workout"}</Text></View><Text style={styles.elapsed}>{clockString(elapsed)}</Text></View>
 

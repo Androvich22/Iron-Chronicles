@@ -44,7 +44,7 @@ export default function RoutinesScreen() {
     catch { setError("This routine could not be duplicated."); }
   };
 
-  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground />
+  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground scene="armory" />
     <ScrollView contentContainerStyle={s.content}>
       <Text style={s.wordmark}>IRON CHRONICLES</Text><Text style={s.eyebrow}>THE ARMORY</Text><Text style={s.title}>Routines</Text>
       <Text style={s.description}>Keep your training plans ready, ordered, and easy to follow.</Text>

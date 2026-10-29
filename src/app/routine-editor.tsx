@@ -56,7 +56,7 @@ export default function RoutineEditorScreen() {
     finally { setSaving(false); }
   };
 
-  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground /><ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={s.content}>
+  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground scene="armory" /><ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={s.content}>
     <View style={s.topline}><Pressable onPress={() => router.back()} style={s.back}><Text style={s.backGlyph}>‹</Text></Pressable><Text style={s.wordmark}>THE ARMORY</Text></View>
     <Text style={s.title}>{editingId ? "Edit routine" : "New routine"}</Text><Text style={s.description}>Choose exercises, set their order, and save the targets you want to follow.</Text>
     <Text style={s.label}>ROUTINE NAME</Text><TextInput accessibilityLabel="Routine name" value={name} onChangeText={setName} placeholder="e.g. Upper Body A" placeholderTextColor="#77736D" style={s.input} maxLength={60} />
