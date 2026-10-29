@@ -4,6 +4,7 @@ import { useCallback, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { BrandMark } from "../../components/BrandMark";
+import { AtmosphereBackground } from "../../components/AtmosphereBackground";
 import { getDashboardOverview, type DashboardOverview } from "../../data/dashboardRepository";
 import { startOrResumeWorkout } from "../../data/workoutRepository";
 import { getPersonalRecords, type PersonalRecord } from "../../data/progressRepository";
@@ -45,6 +46,7 @@ export default function HallScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
+      <AtmosphereBackground />
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.topline}><View style={styles.brand}><BrandMark size={25} /><Text style={styles.wordmark}>IRON CHRONICLES</Text></View><Pressable accessibilityRole="button" accessibilityLabel="Settings and data backup" onPress={() => router.push("/settings")} style={styles.settings}><Text style={styles.settingsGlyph}>⚙</Text></Pressable></View>
         <Text style={styles.kicker}>THE HALL  ·  {today}</Text>

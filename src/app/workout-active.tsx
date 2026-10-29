@@ -3,6 +3,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useCallback, useEffect, useState } from "react";
 import { Alert, Image, Keyboard, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AtmosphereBackground } from "../components/AtmosphereBackground";
 import { searchExercises, type Exercise } from "../data/exerciseRepository";
 import { getExerciseArtwork } from "../data/exerciseArtwork";
 import { addSet, addWorkoutExercise, clearRestTimer, completeWorkoutSet, extendRestTimer, finishWorkout, getActiveWorkout, listWorkoutExercises, omitWorkoutExercise, toggleSetType, updateSetValue, type WorkoutExercise, type WorkoutSet } from "../data/workoutRepository";
@@ -94,7 +95,7 @@ export default function ActiveWorkoutScreen() {
   const elapsed = workout ? Math.max(0, Math.floor((now - new Date(workout.started_at).getTime()) / 1000)) : 0;
 
   if (!workout) {
-    return <SafeAreaView style={styles.safe} edges={["top"]}><View style={styles.missing}><Text style={styles.wordmark}>IRON CHRONICLES</Text><Text style={styles.title}>No active workout</Text><Text style={styles.body}>Start a new session from Workouts to begin logging.</Text><Pressable onPress={() => router.replace("/workouts")} style={styles.primary}><Text style={styles.primaryText}>BACK TO WORKOUTS</Text></Pressable></View></SafeAreaView>;
+    return <SafeAreaView style={styles.safe} edges={["top"]}><AtmosphereBackground /><View style={styles.missing}><Text style={styles.wordmark}>IRON CHRONICLES</Text><Text style={styles.title}>No active workout</Text><Text style={styles.body}>Start a new session from Workouts to begin logging.</Text><Pressable onPress={() => router.replace("/workouts")} style={styles.primary}><Text style={styles.primaryText}>BACK TO WORKOUTS</Text></Pressable></View></SafeAreaView>;
   }
 
   const addNewSet = async (exerciseId: string) => { await addSet(db, exerciseId); await refresh(); };
@@ -112,7 +113,7 @@ export default function ActiveWorkoutScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
-      <Image source={require("../../assets/images/chronicle-atmosphere.png")} resizeMode="cover" pointerEvents="none" accessible={false} style={styles.atmosphere} />
+      <AtmosphereBackground />
       <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={styles.content}>
         <View style={styles.header}><Pressable onPress={() => router.replace("/workouts")} style={styles.back}><Text style={styles.backGlyph}>‹</Text></Pressable><View style={styles.headerCopy}><Text style={styles.eyebrow}>THE FORGE · SESSION</Text><Text style={styles.title}>{workout.routine_name_snapshot ?? "Empty Workout"}</Text></View><Text style={styles.elapsed}>{clockString(elapsed)}</Text></View>
 
@@ -137,7 +138,7 @@ export default function ActiveWorkoutScreen() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: C.bg }, atmosphere: { position: "absolute", top: 0, left: 0, right: 0, width: "100%", height: 280 }, content: { paddingHorizontal: 16, paddingTop: 10, paddingBottom: 28 }, header: { flexDirection: "row", alignItems: "center", marginBottom: 16 }, back: { width: 38, height: 38, borderWidth: 1, borderColor: C.line, borderRadius: 20, alignItems: "center", justifyContent: "center", marginRight: 11 }, backGlyph: { color: C.parchment, fontSize: 26, marginTop: -3 }, headerCopy: { flex: 1 }, eyebrow: { color: C.gold, fontSize: 9, letterSpacing: 1.5, marginBottom: 4 }, title: { color: C.text, fontFamily: "serif", fontSize: 21 }, elapsed: { color: C.gold, fontSize: 14, fontVariant: ["tabular-nums"] },
+  safe: { flex: 1, backgroundColor: C.bg }, content: { paddingHorizontal: 16, paddingTop: 10, paddingBottom: 28 }, header: { flexDirection: "row", alignItems: "center", marginBottom: 16 }, back: { width: 38, height: 38, borderWidth: 1, borderColor: C.line, borderRadius: 20, alignItems: "center", justifyContent: "center", marginRight: 11 }, backGlyph: { color: C.parchment, fontSize: 26, marginTop: -3 }, headerCopy: { flex: 1 }, eyebrow: { color: C.gold, fontSize: 9, letterSpacing: 1.5, marginBottom: 4 }, title: { color: C.text, fontFamily: "serif", fontSize: 21 }, elapsed: { color: C.gold, fontSize: 14, fontVariant: ["tabular-nums"] },
   timer: { backgroundColor: "#211E1A", borderWidth: 1, borderColor: "#725A39", borderRadius: 10, paddingHorizontal: 14, paddingVertical: 10, flexDirection: "row", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }, timerLabel: { color: C.gold, fontSize: 9, letterSpacing: 1.4 }, timerTime: { color: C.text, fontSize: 24, fontWeight: "600", fontVariant: ["tabular-nums"], marginTop: 2 }, timerActions: { flexDirection: "row", gap: 8 }, timerButton: { borderColor: "#725A39", borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 9 }, timerButtonText: { color: C.parchment, fontSize: 11, fontWeight: "600" },
   addExercise: { minHeight: 50, flexDirection: "row", alignItems: "center", backgroundColor: C.panel, borderWidth: 1, borderColor: C.line, borderRadius: 9, paddingHorizontal: 13, marginBottom: 13 }, addGlyph: { color: C.gold, fontSize: 20, marginRight: 10 }, addText: { color: C.parchment, fontSize: 13, flex: 1 }, arrow: { color: C.gold, fontSize: 21 },
   picker: { backgroundColor: C.panel, borderWidth: 1, borderColor: C.line, borderRadius: 10, padding: 12, marginBottom: 13 }, pickerTitle: { color: C.gold, fontSize: 10, letterSpacing: 1.4, fontWeight: "700" }, search: { height: 43, borderWidth: 1, borderColor: C.line, borderRadius: 7, color: C.text, paddingHorizontal: 11, marginTop: 10, marginBottom: 6 }, match: { minHeight: 62, flexDirection: "row", alignItems: "center", borderBottomWidth: 1, borderBottomColor: C.line, paddingRight: 27 }, matchImage: { width: 42, height: 42, borderRadius: 7, marginRight: 10 }, matchCopy: { flex: 1 }, matchName: { color: C.text, fontSize: 13, fontWeight: "600" }, matchMeta: { color: C.muted, fontSize: 10, marginTop: 3 }, matchAdd: { color: C.gold, fontSize: 19 }, emptyHint: { color: C.muted, textAlign: "center", fontSize: 12, padding: 14 },

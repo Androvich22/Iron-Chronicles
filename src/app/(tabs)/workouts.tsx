@@ -3,6 +3,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useCallback, useMemo, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AtmosphereBackground } from "../../components/AtmosphereBackground";
 import { getActiveWorkout, listWorkoutHistory, startOrResumeWorkout } from "../../data/workoutRepository";
 
 const C = { bg: "#101113", panel: "#191A1D", line: "#343338", gold: "#B69A68", ember: "#9A4932", text: "#F0E8D9", muted: "#96918A", parchment: "#D4C7AC" };
@@ -48,6 +49,7 @@ export default function WorkoutsScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
+      <AtmosphereBackground />
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.wordmark}>IRON CHRONICLES</Text>
         <Text style={styles.eyebrow}>THE FORGE</Text>

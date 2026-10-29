@@ -3,6 +3,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useCallback, useMemo, useState } from "react";
 import { Alert, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AtmosphereBackground } from "../../components/AtmosphereBackground";
 import { deleteRoutine, duplicateRoutine, listRoutines, type Routine } from "../../data/routineRepository";
 import { startWorkoutFromRoutine } from "../../data/workoutRepository";
 
@@ -43,7 +44,7 @@ export default function RoutinesScreen() {
     catch { setError("This routine could not be duplicated."); }
   };
 
-  return <SafeAreaView style={s.safe} edges={["top"]}>
+  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground />
     <ScrollView contentContainerStyle={s.content}>
       <Text style={s.wordmark}>IRON CHRONICLES</Text><Text style={s.eyebrow}>THE ARMORY</Text><Text style={s.title}>Routines</Text>
       <Text style={s.description}>Keep your training plans ready, ordered, and easy to follow.</Text>

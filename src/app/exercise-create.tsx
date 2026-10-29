@@ -3,6 +3,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AtmosphereBackground } from "../components/AtmosphereBackground";
 import { getExerciseById } from "../data/workoutRepository";
 import { saveCustomExercise } from "../data/exerciseRepository";
 import type { ExerciseLoadType, ExerciseTrackingType } from "../data/exerciseCatalog";
@@ -49,7 +50,7 @@ export default function ExerciseCreateScreen() {
     finally { setSaving(false); }
   };
 
-  return <SafeAreaView style={s.safe} edges={["top"]}><ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={s.content}>
+  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground /><ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={s.content}>
     <View style={s.topline}><Pressable onPress={() => router.back()} style={s.back}><Text style={s.backGlyph}>‹</Text></Pressable><Text style={s.wordmark}>THE LIBRARY</Text></View>
     <Text style={s.title}>{editingId ? "Edit exercise" : "New exercise"}</Text><Text style={s.description}>Add a custom movement to your local exercise library.</Text>
     <Field label="EXERCISE NAME" value={name} onChangeText={setName} placeholder="e.g. Zercher Squat" />

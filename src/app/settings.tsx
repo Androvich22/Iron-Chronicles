@@ -6,6 +6,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AtmosphereBackground } from "../components/AtmosphereBackground";
 import { createBackup, inspectBackup, restoreBackup, type BackupPreview } from "../data/backupRepository";
 import { getRestTimerAlertPermission, requestRestTimerAlertPermission, scheduleRestTimerAlert } from "../data/restTimerNotifications";
 import { getActiveWorkout } from "../data/workoutRepository";
@@ -81,7 +82,7 @@ export default function SettingsScreen() {
     finally { setBusy(null); }
   };
 
-  return <SafeAreaView style={s.safe} edges={["top"]}><ScrollView contentContainerStyle={s.content}>
+  return <SafeAreaView style={s.safe} edges={["top"]}><AtmosphereBackground /><ScrollView contentContainerStyle={s.content}>
     <View style={s.topline}><Pressable accessibilityRole="button" onPress={() => router.back()} style={s.back}><Text style={s.backGlyph}>‹</Text></Pressable><Text style={s.wordmark}>IRON CHRONICLES</Text></View>
     <Text style={s.eyebrow}>THE STEWARD’S DESK</Text><Text style={s.title}>Settings & data</Text><Text style={s.description}>Your training record stays on this device. Create a backup before changing phones or clearing app storage.</Text>
     <View style={s.card}><Text style={s.cardTitle}>EXPORT YOUR RECORD</Text><Text style={s.cardCopy}>Save routines, exercises, workouts, sets, achievements, and preferences in a versioned JSON file.</Text><Pressable accessibilityRole="button" disabled={busy !== null} onPress={() => void exportBackup()} style={[s.primary, busy !== null && s.disabled]}><Text style={s.primaryText}>{busy === "export" ? "PREPARING BACKUP…" : "EXPORT BACKUP"}</Text></Pressable></View>

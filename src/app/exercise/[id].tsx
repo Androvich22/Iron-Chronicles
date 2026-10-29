@@ -3,6 +3,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useCallback, useState } from "react";
 import { Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AtmosphereBackground } from "../../components/AtmosphereBackground";
 import { addWorkoutExercise, getActiveWorkout, getExerciseById, getPreviousExercisePerformance, startOrResumeWorkout } from "../../data/workoutRepository";
 import type { Exercise } from "../../data/exerciseRepository";
 import { getExerciseArtwork } from "../../data/exerciseArtwork";
@@ -25,7 +26,7 @@ export default function ExerciseDetailScreen() {
     return () => { active = false; };
   }, [db, id]));
 
-  if (!exercise) return <SafeAreaView style={styles.safe} edges={["top"]}><View style={styles.loading}><Text style={styles.wordmark}>IRON CHRONICLES</Text><Text style={styles.empty}>Loading exercise…</Text></View></SafeAreaView>;
+  if (!exercise) return <SafeAreaView style={styles.safe} edges={["top"]}><AtmosphereBackground /><View style={styles.loading}><Text style={styles.wordmark}>IRON CHRONICLES</Text><Text style={styles.empty}>Loading exercise…</Text></View></SafeAreaView>;
 
   const loadLabel = exercise.loadType === "bodyweight" ? "Bodyweight" : exercise.loadType === "bodyweight_added_load" ? "Bodyweight with optional added load" : "External load (kg)";
 
@@ -48,6 +49,7 @@ export default function ExerciseDetailScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
+      <AtmosphereBackground />
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.topline}><Pressable onPress={() => router.back()} style={styles.back}><Text style={styles.backGlyph}>‹</Text></Pressable><Text style={styles.wordmark}>THE LIBRARY</Text></View>
         <View style={styles.illustration}><Image source={getExerciseArtwork(exercise.id)} style={styles.illustrationImage} resizeMode="cover" /><View style={styles.illustrationScrim}><Text style={styles.illustrationLabel}>MOVEMENT RECORD</Text></View></View>

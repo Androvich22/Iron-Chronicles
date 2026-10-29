@@ -3,6 +3,7 @@ import { useSQLiteContext } from "expo-sqlite";
 import { useEffect, useState } from "react";
 import { FlatList, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { AtmosphereBackground } from "../../components/AtmosphereBackground";
 import { listExerciseFilters, searchExercises, type Exercise } from "../../data/exerciseRepository";
 import { getExerciseArtwork } from "../../data/exerciseArtwork";
 
@@ -27,6 +28,7 @@ export default function LibraryScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={["top"]}>
+      <AtmosphereBackground />
       <FlatList
         data={exercises}
         keyExtractor={(item) => item.id}
